@@ -1,0 +1,56 @@
+---
+- name: Configure Web Server for the Car Rental site
+  hosts: all
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: true
+
+    - name: Install Nginx web server
+      apt:
+        name: nginx
+        state: present
+
+    - name: Ensure Nginx is running and enabled
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Create web root directory for autorent.local domain
+      file:
+        path: /var/www/autorent.local/html
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: '0755'
+
+    - name: Copy site files to the web root directory
+      copy:
+        src: ./html/
+        dest: /var/www/autorent.local/html/
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    - name: Copy Nginx Server Block configuration
+      copy:
+        src: ./nginx/autorent.local.conf
+        dest: /etc/nginx/sites-available/autorent.local.conf
+
+    - name: Enable site by creating a symbolic link
+      file:
+        src: /etc/nginx/sites-available/autorent.local.conf
+        dest: /etc/nginx/sites-enabled/autorent.local.conf
+        state: link
+
+    - name: Remove Nginx default site (best practice)
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: Restart Nginx to apply the new domain
+      service:
+        name: nginx
+        state: restarted

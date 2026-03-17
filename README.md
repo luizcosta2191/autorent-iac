@@ -218,6 +218,6 @@ This proves the infrastructure is ready to handle real traffic spikes, even on a
 
 ---
 
-## License
+## 📄 License
 
-This is a fictional project created for Infrastructure as Code demonstration purposes.
+MIT — feel free to use, modify, and distribute.

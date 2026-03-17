@@ -213,7 +213,7 @@ This proves the infrastructure is ready to handle real traffic spikes, even on a
 **Features:**
 - Vehicle catalogue with three categories (Economy, Family SUV, Premium Sports)
 - Booking modal with dynamic total calculation based on number of days
-- Payment simulation via **Fetch API**, sending JSON data to a mock backend ([jsonplaceholder.typicode.com](https://jsonplaceholder.typicode.com))
+- Payment simulation via **Fetch API**, sending JSON data to a mock backend
 - Booking confirmation code returned by the API
 
 ---
